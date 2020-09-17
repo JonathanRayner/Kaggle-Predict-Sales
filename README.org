@@ -1,0 +1,17 @@
+# title shouldn't appear in toc
+* Kaggle Predict Sales :noexport:
+
+[[https://www.kaggle.com/c/competitive-data-science-predict-future-sales/overview][Competition link]]
+
+* Contents :TOC:
+- [[#intro][Intro]]
+- [[#files-in-this-repository][Files in this Repository]]
+
+* Intro
+
+Intro
+
+* Files in this Repository
+
+- File 1
+- File 2
