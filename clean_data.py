@@ -14,4 +14,4 @@ df.drop_duplicates(inplace=True)
 df = df[(df['item_price'] > 0) & (df['item_price'] < 6e4)]
 
 # save
-df.to_csv('train_clean.csv')
+df.to_csv('train_clean.csv', index=False)
