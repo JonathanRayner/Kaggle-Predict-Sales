@@ -6,6 +6,9 @@
 * Contents :TOC:
 - [[#data--eda][Data + EDA]]
 - [[#results][Results]]
+  - [[#baseline-model][Baseline model]]
+  - [[#add-item-categories-and-various-time-features][Add item categories and various time features]]
+  - [[#use-only-the-most-recent-years-data][Use only the most recent year's data]]
 - [[#possible-improvements][Possible improvements]]
 - [[#files-in-this-repository][Files in this Repository]]
 
@@ -15,8 +18,16 @@ Intro
 
 * Results
 
+** Baseline model
 [[baseline_feature_importance.png]]
 
+[[baseline_validation.png]]
+
+[[baseline_test.png]]
+
+** Add item categories and various time features
+
+** Use only the most recent year's data
 
 * Possible improvements
 
