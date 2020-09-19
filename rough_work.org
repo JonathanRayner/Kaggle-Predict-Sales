@@ -98,6 +98,11 @@ xgboost with item categories + time features
 xgboost without weird shops?
 show some plots for total sales comparing prediction
 submit to kaggle?
+mention lag features
+perhaps smape to deal with outliers
+mention looking at worst days/items/shops
+could see if making data stationary helps
+check MAE briefly
 
 
 
