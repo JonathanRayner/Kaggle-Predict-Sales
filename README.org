@@ -27,7 +27,19 @@ Intro
 
 ** Add item categories and various time features
 
+[[add_features_feature_importance.png]]
+
+[[add_features_validation.png]]
+
+[[add_features_test.png]]
+
 ** Use only the most recent year's data
+
+[[add_features_2015_feature_importance.png]]
+
+[[add_features_2015_validation.png]]
+
+[[add_features_2015_test.png]]
 
 * Possible improvements
 
