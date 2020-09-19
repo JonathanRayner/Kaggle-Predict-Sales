@@ -1,0 +1,103 @@
+* Intro/notes
+** Link/evaluation
+Competition link: https://www.kaggle.com/c/competitive-data-science-predict-future-sales/overview
+
+We are asking you to predict total sales for every product and store in the next month. 
+
+Evaluation: Submissions are evaluated by root mean squared error (RMSE). True target values are clipped into [0,20] range.
+
+Submission File: For each id in the test set, you must predict a total number of sales. 
+
+** Data
+You are provided with daily historical sales data. The task is to forecast the total amount of products sold in every shop for the test set. Note that the list of shops and products slightly changes every month. Creating a robust model that can handle such situations is part of the challenge.
+
+File descriptions
+
+- sales_train.csv - the training set. Daily historical data from January 2013 to October 2015.
+- test.csv - the test set. You need to forecast the sales for these shops and products for November 2015.
+- sample_submission.csv - a sample submission file in the correct format.
+- items.csv - supplemental information about the items/products.
+- item_categories.csv  - supplemental information about the items categories.
+- shops.csv- supplemental information about the shops.
+
+Data fields
+
+- ID - an Id that represents a (Shop, Item) tuple within the test set
+- shop_id - unique identifier of a shop
+- item_id - unique identifier of a product
+- item_category_id - unique identifier of item category
+- item_cnt_day - number of products sold. You are predicting a monthly amount of this measure
+- item_price - current price of an item
+- date - date in format dd/mm/yyyy
+- date_block_num - a consecutive month number, used for convenience. January 2013 is 0, February 2013 is 1,..., October 2015 is 33
+- item_name - name of item
+- shop_name - name of shop
+- item_category_name - name of item category
+
+** Assessment ToDo
+- For this assessment you will have 2 days to submit.
+- You are required to use Python for this assessment
+- You are required to include an EDA, with a link to the dataset/s you used.
+- Get as far as you can in the 2 days and submit what you have. This is to see where your skills are strongest and weakest, so we can put together a well-balanced team.
+
+Please fulfill the following instructions:
+
+- Find a data set on Kaggle … any data set of interest to you (You are welcome to use more than one dataset if you find that one or more sets might add value to the insights of the original one you chose)
+- Go through your data cleaning and data exploration as per normal
+- Build an XGBoost regression model for your data set
+- In a way that is comfortable to you, do a 3-step forecast (depending on the data you chose, this will be 3 days, 3 hours etc.)
+- 
+Submission:
+
+- Please load all your code, documentation, and data sets to your GitHub profile.
+- Email your GitHub link to us.
+- Include a readme file to your repository.
+* Import
+#+BEGIN_SRC python :session 
+import xgboost as xgb
+#+END_SRC
+
+#+RESULTS:
+
+* Plan
+
+EDA some item(s) (all stores), one item plotting for each store
+outliers, missing values
+autocorrelation? (ACF)
+validation: 1 month?
+baseline: use average value and check kaggle scores
+baseline: xgboost, no time series, predict sales per day and check kaggle score for total month's sales
+xgboost with categorical labels: day, day of week, month, year. predict per day sales and check kaggle score for total month's sales
+0, 1 feature for holidays/specific dates, outliers?
+catch22 time series feature generation
+np.log np.diff transforms?
+check kaggle discussion for feature engineering
+prophet?
+sktime https://github.com/alan-turing-institute/sktime
+moving window testing?
+arima see Tamara Louie talk 59:00 (need stationarity) or lstm or ?? for time series
+arima good for small data sets
+maybe skip arima, use prophet and lstm
+unsure if stationarity needed for ML
+lstm 1:15 tamara louie talk
+45:00 Aileen Nielsen has a good stats package for step ahead predictions
+1:40 Aileen Nielsen ML time series
+2:44 Aileen Nielsen Deep Learning for time series (probably won't use this)
+TFT looks cool and could be SOTA https://arxiv.org/pdf/1912.09363v2.pdf
+Check for drastically different regimes - may need LSTM/Deep Learning/etc. to deal with this
+
+PearsonR SpearmanR metrics? (scipy)
+Scatter true vs. predicted
+
+* To do
+
+decide on how long predicting (1 month? 3 days? several train/validation splits?)
+baseline predicting previous month's average per day
+baseline xgboost no time series info
+xgboost with item categories + time features
+xgboost without weird shops?
+show some plots for total sales comparing prediction
+submit to kaggle?
+
+
+
