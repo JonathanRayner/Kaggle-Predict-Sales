@@ -4,14 +4,27 @@
 [[https://www.kaggle.com/c/competitive-data-science-predict-future-sales/overview][Competition link]]
 
 * Contents :TOC:
-- [[#intro][Intro]]
+- [[#data--eda][Data + EDA]]
+- [[#results][Results]]
+- [[#possible-improvements][Possible improvements]]
 - [[#files-in-this-repository][Files in this Repository]]
 
-* Intro
+* Data + EDA
 
 Intro
 
+* Results
+
+[[baseline_feature_importance.png]]
+
+
+* Possible improvements
+
 * Files in this Repository
 
-- File 1
-- File 2
+- eda.ipynb
+- clean_data.py
+
+Run this to create train_clean.csv, used in xgboost.ipynb  
+  
+- xgboost.ipynb
