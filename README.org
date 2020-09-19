@@ -19,6 +19,22 @@ Intro
 * Results
 
 ** Baseline model
+
+Summary statistics
+
+number of trees: 20
+
+train-rmse: 1.80402	
+validation-rmse: 6.08256
+
+train-mape: 0.20434	
+validation-mape: 0.17836
+
+train-mae: 0.34221	
+validation-mae: 0.50230
+
+test rsme: 9.379496907843956
+
 [[baseline_feature_importance.png]]
 
 [[baseline_validation.png]]
@@ -27,6 +43,21 @@ Intro
 
 ** Add item categories and various time features
 
+Summary statistics
+
+number of trees: 98
+
+train-rmse: 1.56050	
+validation-rmse: 1.56527
+
+train-mape: 0.21753	
+validation-mape: 0.22912
+
+train-mae: 0.36448	
+validation-mae: 0.39369
+
+test rsme: 9.754962031326457
+
 [[add_features_feature_importance.png]]
 
 [[add_features_validation.png]]
@@ -34,6 +65,21 @@ Intro
 [[add_features_test.png]]
 
 ** Use only the most recent year's data
+
+Summary statistics
+
+number of trees: 39
+
+train-rmse: 1.47490		
+validation-rmse: 1.47621
+
+train-mape: 0.17846	
+validation-mape: 0.17519
+
+train-mae: 0.29268	
+validation-mae: 0.34397
+
+test rmse: 10.024865745802856
 
 [[add_features_2015_feature_importance.png]]
 
