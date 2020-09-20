@@ -52,8 +52,8 @@ See eda.ipynb . Summarizing:
 - Trained 3 models with xgboost: baseline, adding item category and various time features, and feature engineering + using only the most recent year's data (perhaps using only recent data improves performance).
 - Last month of data used as test set, 2nd to last month used as validation set.
 - Models were trained with default parameters, except for training with as many trees as need until overfitting (as measured by RSME on validation set).
-- Models were evaluated using RSME. MAE and MAPE were also tracked, but in general these are poor metrics for this task: almost all item count values are 1 and so if the model makes even a slight error such as predicting 2 instead of 1, this is 100% error according to MAPE.
-- The model using all of the data + feature engineering performed best. The baseline model immediately overfit, showing poor generalization to validation. The model using feature engineering + only the most recent year's data performed slightly worse on the test set than the model using all of the data (possibly due to higher weight on a single outlier).
+- Models were evaluated using RSME. MAE and MAPE were also tracked, but may not be good metrics for this task: almost all item count values are 1 and so if the model makes even a slight error such as predicting 2 instead of 1, this is 100% error according to MAPE.
+- The model using all of the data + feature engineering performed best. The baseline model immediately overfit, showing poor generalization to validation. The model using feature engineering + only the most recent year's data performed slightly worse on the test set than the model using all of the data (possibly due to higher weight on a single outlier). However, MAPE + MAE were better for the model using only the most recent year's data, which gives preliminary evidence that this may be the best model. 
 - Even the best model had RMSE of roughly 2.3 on the test set. This isn't terrible, but is worse than the validation set (roughly 1.5). There could be a single outlier contributing most of this difference (see predicted vs. true scatter plots in subsections below). We need to look further into whether we can remove this outlier.
 - We also plot predicted total sales and the true values for total sales on each day of the predicted month. We see decent qualitative agreement.
 
@@ -144,8 +144,8 @@ Test set total daily sales:
 
 Observations:
 
-- No major difference from using all of the data.
 - If anything, RMSE on test worsens slightly using only data from 2015. Perhaps this is just from giving more weight to the single outlier.
+- MAPE and MAE improved noticeably from the model with feat engineering that uses all 3 years of data.
 
 Summary statistics:
 
