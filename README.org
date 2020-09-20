@@ -1,10 +1,12 @@
 # title shouldn't appear in toc
 * Kaggle Predict Sales :noexport:
 
-[[https://www.kaggle.com/c/competitive-data-science-predict-future-sales/overview][Competition link]]
+This notebook implements an XGBoost model to forecast various item sales at various stores in Russia, based on 3 years of sales data. The data is taken from this [[https://www.kaggle.com/c/competitive-data-science-predict-future-sales/overview][kaggle competition]] (which has a slightly different objective).
 
 * Contents :TOC:
 - [[#data--eda][Data + EDA]]
+  - [[#data][Data]]
+  - [[#eda][EDA]]
 - [[#results][Results]]
   - [[#summary][Summary]]
   - [[#baseline-model][Baseline model]]
@@ -18,7 +20,29 @@
 
 * Data + EDA
 
-Intro
+** Data
+
+Data available [[https://www.kaggle.com/c/competitive-data-science-predict-future-sales/data][here]]. Data gives count of sales of various items at various shops in Russia, across a 3 year period. Our goal is to predict item sales at these stores in future months.
+
+** EDA
+
+See eda.ipynb . Summarizing:
+
+- There are a small number of duplicate rows. We remove these in cleaning.
+- No missing values.
+- dtypes are all float and int, once we convert dates to datetime object and use as index.
+- Checking feature histograms:
+
+[[feature_hist.png]]
+
+- Some shops have significantly more entries than others, some item categories appear significantly more often than others
+- Low prices and low item sale counts appear much more often than higher values.
+- We see spikes in number of entries each year in December.
+- There is a single entry with negative item price - we remove this in cleaning.
+- There are many negative item sales counts. Perhaps these are returns - we don't remove these.
+- There is one item that is an extreme outlier in price and was only bought once ever. It appears to be some sort of corporate software. We remove this outlier.
+- There are some outliers in total item sales in one day. We don't know enough to remove these.
+- There are shops and items that have noticeably strange behavior, such as much fewer sales in the most recent year. We identify these as shops and items not asked for in the test.csv file. We use these entries in our baseline model, but remove them in our subsequent models when we begin feature engineering.
 
 * Results
 ** Summary
@@ -133,7 +157,7 @@ Ran out of time, but here are some ways to improve:
 ** Other models
 - ARIMA (maybe with just a few month's data)
 - Prophet
-- If time + compute, TFT looks cool and could be SOTA: https://arxiv.org/pdf/1912.09363v2.pdf
+- If time + compute, TFT looks cool and could be SOTA (as of 2020): https://arxiv.org/pdf/1912.09363v2.pdf
  
 * Files in this Repository
 
