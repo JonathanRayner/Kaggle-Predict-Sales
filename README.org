@@ -3,7 +3,7 @@
 
 - This notebook implements an XGBoost model to forecast various item sales at various stores in Russia, based on 3 years of sales data. 
 - Challenge: EDA and build the best possible XGBoost forecasting model in 2 days.
-- Current status: in rough testing, the model achieves ~1.5 RMSE in 1 month look-ahead forecasting, ~10 RMSE in 2 month look-ahead forecasting. This is relative to 1 sale per item per day being extremely common in the data, meaning 1 month look-ahead error is reasonable order of magnitude.
+- Current status: in rough testing, the model achieves ~1.5 RMSE in 1 month look-ahead forecasting, ~2.3 RMSE in 2 month look-ahead forecasting. This is relative to 1 sale per item per day being extremely common in the data, so this shows decent performance for a first pass.
 - The data is taken from this [[https://www.kaggle.com/c/competitive-data-science-predict-future-sales/overview][kaggle competition]] (which has a slightly different objective).
 
 * Contents :TOC:
@@ -22,7 +22,6 @@
 - [[#files-in-this-repository][Files in this Repository]]
 
 * Data + EDA
-
 ** Data
 
 Data available [[https://www.kaggle.com/c/competitive-data-science-predict-future-sales/data][here]]. Data gives count of sales of various items at various shops in Russia, across a 3 year period. Our goal is to predict item sales at these stores in future months.
@@ -44,7 +43,7 @@ See eda.ipynb . Summarizing:
 - There is a single entry with negative item price - we remove this in cleaning.
 - There are many negative item sales counts. Perhaps these are returns - we don't remove these.
 - There is one item that is an extreme outlier in price and was only bought once ever. It appears to be some sort of corporate software. We remove this outlier.
-- There are some outliers in total item sales in one day. We don't know enough to remove these.
+- There are some outliers in total item sales in one day. In particular, there is an October 28, 2015 entry that is an extreme outlier: the price is completely different from other listings of this item at this shop, and there 2000 sales, which is an extreme outlier in all item sales. We remove this outlier, but don't know enough to remove any others. 
 - There are shops and items that have noticeably strange behavior, such as much fewer sales in the most recent year. We identify these as shops and items not asked for in the test.csv file. We use these entries in our baseline model, but remove them in our subsequent models when we begin feature engineering.
 
 * Results
@@ -54,16 +53,17 @@ See eda.ipynb . Summarizing:
 - Last month of data used as test set, 2nd to last month used as validation set.
 - Models were trained with default parameters, except for training with as many trees as need until overfitting (as measured by RSME on validation set).
 - Models were evaluated using RSME. MAE and MAPE were also tracked, but in general these are poor metrics for this task: almost all item count values are 1 and so if the model makes even a slight error such as predicting 2 instead of 1, this is 100% error according to MAPE.
-- The model using all of the data + feature engineering performed best. The baseline model immediately overfit, showing poor generalization to validation. The model using feature engineering + only the most recent year's data performed slightly worse on the test set than the model using all of the data.
-- Even the best model had RMSE of roughly 10 on the test set. This isn't terrible, but is noticeably worse than the validation set (roughly 1.5). It could be that the majority of this error is coming from a single day in late October 2015 (see plots in subsequent sections). Googling Russian holidays didn't turn up anything obvious to explain this.
-- Difficult to get an overall visualization of the prediction for count of sales for so many item-shop combinations. As a rough test, we plot predicted total sales and the true values for total sales on each day of the predicted month. We see decent qualitative agreement.
+- The model using all of the data + feature engineering performed best. The baseline model immediately overfit, showing poor generalization to validation. The model using feature engineering + only the most recent year's data performed slightly worse on the test set than the model using all of the data (possibly due to higher weight on a single outlier).
+- Even the best model had RMSE of roughly 2.3 on the test set. This isn't terrible, but is worse than the validation set (roughly 1.5). There could be a single outlier contributing most of this difference (see predicted vs. true scatter plots in subsections below). We need to look further into whether we can remove this outlier.
+- We also plot predicted total sales and the true values for total sales on each day of the predicted month. We see decent qualitative agreement.
 
 ** Baseline model
 
 Observations:
 
 - Validation RMSE always much higher than train, overfitting/model not very predictive.
-- Decent looking summarising graphs for validation and test.
+- Scatter plot of predicted vs. true shows distribution along the axes. This is because the model is over-predicting sales=1 (which is a very common value in the data) and also predicting values that are too high for many data points that have item sales=1 as their true value.
+- Surprisingly decent looking total daily sales graphs for validation and test.
 
 Summary Statistics:
 
@@ -78,11 +78,23 @@ validation-mape: 0.17836
 train-mae: 0.34221	
 validation-mae: 0.50230
 
-test rsme: 9.379496907843956
+test rsme: 2.419216650990203
 
 [[baseline_feature_importance.png]]
 
+Validation set predicted values vs. true values scatter plot:
+
+[[baseline_validation_scatter.png]]
+
+Test set predicted values vs. true values scatter plot:
+
+[[baseline_test_scatter.png]]
+
+Validation set total daily sales:
+
 [[baseline_validation.png]]
+
+Test set total daily sales:
 
 [[baseline_test.png]]
 
@@ -91,8 +103,9 @@ test rsme: 9.379496907843956
 Observations:
 
 - Excellent improvement in rmse on validation over baseline model.
-- Not great rmse on test (not terrible).
-- Otherwise, decent looking summarising graphs for validation and test.
+- Predicted vs. True scatter also looks much better than the baseline model. The model is still over-predicting sales=1, but a lot more of the distribution is clustered along y=x (accurate predictions).
+- From the scatter plot for the test set, we see that a single outlier is probably making test RSME look worse than it is. Test RSME still isn't too bad.
+- Decent looking total daily sales graphs for validation and test.
 
 Summary Statistics
 
@@ -107,11 +120,23 @@ validation-mape: 0.22912
 train-mae: 0.36448	
 validation-mae: 0.39369
 
-test rsme: 9.754962031326457
+test rsme: 2.315024722824876
 
 [[add_features_feature_importance.png]]
 
+Validation set predicted values vs. true values scatter plot:
+
+[[add_features_validation_scatter.png]]
+
+Test set predicted values vs. true values scatter plot:
+
+[[add_features_test_scatter.png]]
+
+Validation set total daily sales:
+
 [[add_features_validation.png]]
+
+Test set total daily sales:
 
 [[add_features_test.png]]
 
@@ -120,7 +145,7 @@ test rsme: 9.754962031326457
 Observations:
 
 - No major difference from using all of the data.
-- If anything, RMSE on test worsens using only data from 2015.
+- If anything, RMSE on test worsens slightly using only data from 2015. Perhaps this is just from giving more weight to the single outlier.
 
 Summary statistics:
 
@@ -135,11 +160,23 @@ validation-mape: 0.17519
 train-mae: 0.29268	
 validation-mae: 0.34397
 
-test rmse: 10.024865745802856
+test rmse: 2.500863996930012
 
 [[add_features_2015_feature_importance.png]]
 
+Validation set predicted values vs. true values scatter plot:
+
+[[add_features_2015_validation_scatter.png]]
+
+Test set predicted values vs. true values scatter plot:
+
+[[add_features_2015_test_scatter.png]]
+
+Validation set total daily sales:
+
 [[add_features_2015_validation.png]]
+
+Test set total daily sales:
 
 [[add_features_2015_test.png]]
 
@@ -148,6 +185,7 @@ test rmse: 10.024865745802856
 Ran out of time, but here are some ways to improve:
 
 ** Improve these models
+- Figure out if we can remove the outlier in the test set. There are several entries with values like this in other months, so not immediately obvious if we can.
 - Hyperparameter searches
 - Cross validation across more months
 - Look at days/items/shops where model performs worst for clues
