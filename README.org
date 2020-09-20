@@ -117,9 +117,24 @@ test rmse: 10.024865745802856
 [[add_features_2015_test.png]]
 
 * Possible improvements
+
+Ran out of time, but here are some ways to improve:
+
 ** Improve these models
+- Hyperparameter searches
+- Look at days/items/shops where model performs worst for clues
+- Add lag features
+- Could see if making the data stationary helps
+ 
 ** Multi-step prediction
+- We've done direct one-month ahead and two-month ahead prediction. Model can be adapted to direct N-month ahead predictions.
+- Could try recursive N-month or N-day ahead predictions with this model.
+
 ** Other models
+- ARIMA (maybe with just a few month's data)
+- Prophet
+- If time + compute, TFT looks cool and could be SOTA: https://arxiv.org/pdf/1912.09363v2.pdf
+ 
 * Files in this Repository
 
 - eda.ipynb
