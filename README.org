@@ -1,7 +1,10 @@
 # title shouldn't appear in toc
 * Kaggle Predict Sales :noexport:
 
-This notebook implements an XGBoost model to forecast various item sales at various stores in Russia, based on 3 years of sales data. The data is taken from this [[https://www.kaggle.com/c/competitive-data-science-predict-future-sales/overview][kaggle competition]] (which has a slightly different objective).
+- This notebook implements an XGBoost model to forecast various item sales at various stores in Russia, based on 3 years of sales data. 
+- Challenge: EDA and build the best possible XGBoost forecasting model in 2 days.
+- Current status: in rough testing, the model achieves ~1.5 RMSE in 1 month look-ahead forecasting, ~10 RMSE in 2 month look-ahead forecasting. This is relative to 1 sale per item per day being extremely common in the data, meaning 1 month look-ahead error is reasonable order of magnitude.
+- The data is taken from this [[https://www.kaggle.com/c/competitive-data-science-predict-future-sales/overview][kaggle competition]] (which has a slightly different objective).
 
 * Contents :TOC:
 - [[#data--eda][Data + EDA]]
@@ -146,6 +149,7 @@ Ran out of time, but here are some ways to improve:
 
 ** Improve these models
 - Hyperparameter searches
+- Cross validation across more months
 - Look at days/items/shops where model performs worst for clues
 - Add lag features
 - Could see if making the data stationary helps
