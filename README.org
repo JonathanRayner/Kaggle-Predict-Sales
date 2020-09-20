@@ -161,9 +161,11 @@ Ran out of time, but here are some ways to improve:
  
 * Files in this Repository
 
+- competitive-data-science-predict-future-sales.zip (raw data)
+- train_clean.csv (cleaned data)
 - eda.ipynb
 - clean_data.py
 
 Run clean_data.py to create train_clean.csv, used in xgboost.ipynb  
   
-- xgboost.ipynb
+- xgboost.ipynb (models)
