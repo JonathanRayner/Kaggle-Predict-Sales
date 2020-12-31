@@ -18,7 +18,7 @@
 - [[#possible-improvements][Possible improvements]]
   - [[#improve-these-models][Improve these models]]
   - [[#multi-step-prediction][Multi-step prediction]]
-  - [[#other-models][Other models]]
+  - [[#other-tools][Other Tools]]
 - [[#files-in-this-repository][Files in this Repository]]
 
 * Data + EDA
@@ -196,7 +196,7 @@ Ran out of time, but here are some ways to improve:
 - We've done direct one-month ahead and two-month ahead prediction. Model can be adapted to direct N-month ahead predictions.
 - Could try recursive N-month or N-day ahead predictions with this model.
 
-** Other models
+** Other Tools
 - ARIMA (maybe with just a few month's data)
 - Prophet
 - If time + compute, TFT looks cool and could be SOTA (as of 2020): https://arxiv.org/pdf/1912.09363v2.pdf
