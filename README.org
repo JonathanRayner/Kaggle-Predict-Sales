@@ -35,7 +35,7 @@ See eda.ipynb . Summarizing:
 - dtypes are all float and int, once we convert dates to datetime object and use as index.
 - Checking feature histograms:
 
-[[feature_hist.png]]
+[[file:figs/feature_hist.png]]
 
 - Some shops have significantly more entries than others, some item categories appear significantly more often than others
 - Low prices and low item sale counts appear much more often than higher values.
@@ -80,23 +80,23 @@ validation-mae: 0.50230
 
 test rsme: 2.419216650990203
 
-[[baseline_feature_importance.png]]
+[[file:figs/baseline_feature_importance.png]]
 
 Validation set predicted values vs. true values scatter plot:
 
-[[baseline_validation_scatter.png]]
+[[file:figs/baseline_validation_scatter.png]]
 
 Test set predicted values vs. true values scatter plot:
 
-[[baseline_test_scatter.png]]
+[[file:figs/baseline_test_scatter.png]]
 
 Validation set total daily sales:
 
-[[baseline_validation.png]]
+[[file:figs/baseline_validation.png]]
 
 Test set total daily sales:
 
-[[baseline_test.png]]
+[[file:figs/baseline_test.png]]
 
 ** Add item categories and various time features
 
@@ -122,23 +122,23 @@ validation-mae: 0.39369
 
 test rsme: 2.315024722824876
 
-[[add_features_feature_importance.png]]
+[[file:figs/add_features_feature_importance.png]]
 
 Validation set predicted values vs. true values scatter plot:
 
-[[add_features_validation_scatter.png]]
+[[file:figs/add_features_validation_scatter.png]]
 
 Test set predicted values vs. true values scatter plot:
 
-[[add_features_test_scatter.png]]
+[[file:figs/add_features_test_scatter.png]]
 
 Validation set total daily sales:
 
-[[add_features_validation.png]]
+[[file:figs/add_features_validation.png]]
 
 Test set total daily sales:
 
-[[add_features_test.png]]
+[[file:figs/add_features_test.png]]
 
 ** Use only the most recent year's data
 
@@ -162,23 +162,23 @@ validation-mae: 0.34397
 
 test rmse: 2.500863996930012
 
-[[add_features_2015_feature_importance.png]]
+[[file:figs/add_features_2015_feature_importance.png]]
 
 Validation set predicted values vs. true values scatter plot:
 
-[[add_features_2015_validation_scatter.png]]
+[[file:figs/add_features_2015_validation_scatter.png]]
 
 Test set predicted values vs. true values scatter plot:
 
-[[add_features_2015_test_scatter.png]]
+[[file:figs/add_features_2015_test_scatter.png]]
 
 Validation set total daily sales:
 
-[[add_features_2015_validation.png]]
+[[file:figs/add_features_2015_validation.png]]
 
 Test set total daily sales:
 
-[[add_features_2015_test.png]]
+[[file:figs/add_features_2015_test.png]]
 
 * Possible improvements
 
