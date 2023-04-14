@@ -1,5 +1,5 @@
 # title shouldn't appear in toc
-* Kaggle Predict Sales :noexport:
+* Kaggle 1C Sales Prediction :noexport:
 
 - This notebook implements an XGBoost model to forecast various item sales at various stores in Russia, based on 3 years of sales data. 
 - Challenge: EDA and build the best possible XGBoost forecasting model in 2 days.
